@@ -28,6 +28,8 @@ resource "aws_emr_cluster" "segment_data_lake_emr_cluster" {
     }
   }
 
+	cluster_state = "WAITING"
+	
   lifecycle {
 		# When jobs are running, cluster_state & step will be different
     ignore_changes = [
