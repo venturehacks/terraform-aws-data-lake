@@ -28,6 +28,12 @@ resource "aws_emr_cluster" "segment_data_lake_emr_cluster" {
     }
   }
 
+  lifecycle {
+    ignore_changes = [
+      step # As jobs get scheduled, step will change
+    ]
+  }
+
   core_instance_group {
     instance_type  = var.core_instance_type
     instance_count = var.core_instance_count
@@ -120,7 +126,7 @@ resource "aws_emr_instance_group" "task" {
   instance_type  = var.task_instance_type
   instance_count = var.task_instance_count
 
-	lifecycle {
+  lifecycle {
     ignore_changes = [
       instance_count # with autoscaling, the number of instances changes over time
     ]
