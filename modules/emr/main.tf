@@ -29,8 +29,10 @@ resource "aws_emr_cluster" "segment_data_lake_emr_cluster" {
   }
 
   lifecycle {
+		# When jobs are running, cluster_state & step will be different
     ignore_changes = [
-      step # As jobs get scheduled, step will change
+      step, 
+			cluster_state
     ]
   }
 
